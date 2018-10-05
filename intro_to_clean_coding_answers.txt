@@ -7,7 +7,10 @@
 
 2. Think about another commonly used object that relies on computers and explain
    what would happen if the code was not created to an acceptable standard.
-    - 
+    - The linked story made me think of all of the computers and electronics on board
+      a commercial airliner. Obviously some kind of substandard code could lead to a
+      massive loss of life at worst, and a huge repair cost at best if it caused something
+      like the autopilot, altimeter, landing gear, flight controls, etc. to malfunction.
 
 3. Would you consider the following to be clean code? If not, refactor the code.
   - No. It is excessively commented and uses non-descriptive variable names.

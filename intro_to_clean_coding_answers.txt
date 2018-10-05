@@ -1,0 +1,162 @@
+1. In your own words, explain what clean code is and why it is important.
+  - Clean code is code that is self-documenting and clear to read and understand.
+    This can be achieved by using descriptive variable and function names, breaking
+    functions and methods down into pieces that all only do one thing - not multiple
+    things, avoiding nesting deeper than necessary, and generally formatting your
+    code so that it is easy on the eyes.
+
+2. Think about another commonly used object that relies on computers and explain
+   what would happen if the code was not created to an acceptable standard.
+    - 
+
+3. Would you consider the following to be clean code? If not, refactor the code.
+  - No. It is excessively commented and uses non-descriptive variable names.
+    It is also not indented properly, making it even harder to read.
+
+    Refactored:
+    FUNCTION convertTemp(temperature, measurementSystem)
+      IF measurementSystem = "Fahrenheit" THEN
+        SET convertedTemp to (temperature - 32) * (5/9)
+        PRINT convertedTempt
+      ELSE IF measurementSystem = "Celsius" THEN
+        SET convertedTemp to temperature * 1.8000 + 32.00
+        PRINT convertedTemp
+      END IF
+    END FUNCTION
+
+4. Would you consider the following to be clean code? If not, refactor the code.
+  - I would consider this to be clean code because it is using descriptive names
+    for variables, the indentation makes it clear what block of code I'm looking
+    at, and I can tell exactly what the function is doing from glancing at it.
+
+5. Using pseudocode, refactor the code for the following examples using the principles
+   you have learned in this checkpoint.
+
+   a. The following function prints the subtotal of a customer's transaction and 
+      receives payment accordingly.
+
+      Refactored:
+      FUNCTION getTotal(subTotal, discountRate)
+        RETURN subTotal * discountRate + (subTotal * TAX)
+      END FUNCTION
+
+      FUNCTION receiveCashPayment(total, customerPayment)
+        RETURN customerPayment - total
+      END FUNCTION
+
+      FUNCTION isCashPayment(paymentType)
+        RETURN paymentType is EQUAL TO "CASH"
+      END FUNCTION
+
+      FUNCTION checkOutCustomer(subTotal, discountRate, paymentType, customerPaymentAmount)
+        total = CALL getTotal(subTotal, discountRate)
+        PRINT "Your total due is: " + total
+        IF CALL isCashPayment(paymentType) RETURNING TRUE or FALSE
+          PRINT "Change due: " + CALL receiveCashPayment(customerPaymentAmount) RETURNING changeDue
+        ELSE
+          PRINT "Your credit card has been charged: " + total
+        END IF
+      END FUNCTION
+
+  b. The following function checks out a book if there are no issues with the guest's account.
+
+    Refactored:
+    FUNCTION checkoutBook(book, guest)
+      IF guest.accountActive AND NOT(guest.hasOverdueBooks) AND guest.outstandingFees = 0 THEN
+        APPEND book to guest.books
+        SET book.status to "Checked out"
+        PRINT "Your books have been issued."
+      ELSE
+        PRINT "Unable to check out book."
+      END IF
+    END FUNCTION
+
+  c. The following class is a code snippet that should support the transactions a customer
+     can perform at an ATM.
+
+    Refactored:
+    CLASS BankAccount
+      FUNCTION displayBalance
+        PRINT balance
+      END FUNCTION
+
+      FUNCTION deposit(amount)
+        SET balance to balance + amount
+      END FUNCTION
+
+      FUNCTION withdraw(amount)
+        IF balance > amount THEN
+          SET balance to balance - amount
+        END IF
+      END FUNCTION
+    END CLASS
+
+    CLASS Customer
+      FUNCTION creditCardOffer
+        IF NOT(customer.hasCreditCard) THEN
+          CALL offerCreditCard
+        END IF
+      END FUNCTION
+
+      FUNCTION checkStatus
+        IF NOT(customer.hasCheckingAccount) THEN
+          CALL offerCheckingAccount
+        END IF
+      END FUNCTION
+    END CLASS
+
+Programming Questions
+
+6. Given an array of integers, find out whether the sum of the integers is a perfect square.
+   If it is a perfect square, return the square root, otherwise return the sum.
+
+   function getSum(numbers) {
+     return numbers.reduce((total, nextNum) => total + nextNum);
+   }
+
+   function getRoot(sum) {
+     return Math.sqrt(sum);
+   }
+
+   function getRootOrSum(numbers) {
+     let sum = getSum(numbers);
+     let squareRoot = getRoot(sum);
+     
+     if (squareRoot === Math.floor(squareRoot)) {
+       return squareRoot;
+     } else {
+       return sum;
+     }
+   }
+
+7. Given an array of integers, find out whether the array contains any duplicate elements.
+   The function should return true if any value appears at least twice in the array, and false
+   if every element is distinct.
+
+   function containsDuplicate(numbers) {
+     numbers.sort((currentNum, nextNum) => currentNum - nextNum);
+     for(let i = 0; i < numbers.length; i++) {
+       if(numbers[i] === numbers[i + 1]) {
+         return true;
+       }
+     }
+     return false;
+   }
+
+8. An anagram is a word, phrase, or name formed by rearranging the letters of another word.
+   Given two strings, stringOne and stringTwo, determine if stringOne is an anagram of 
+   stringTwo. Assume that the strings contain only lowercase letters and do not worry about
+   case-sensitivity.
+
+  function anagram(stringOne, stringTwo) {
+    let processedStringOne = [...stringOne]
+      .filter(character => character !== ' ')
+      .sort()
+      .join('');
+    let processedStringTwo = [...stringTwo]
+      .filter(character => character !== ' ')
+      .sort()
+      .join('');
+
+    return processedStringOne === processedStringTwo;
+  }
